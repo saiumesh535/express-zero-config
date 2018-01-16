@@ -28,6 +28,11 @@ const server = http.createServer(app);
 app.use('/', index);
 app.use('/users', users);
 
+/* serving auth files to route */
+/* index.js file will be called by default if you don't mention any file name explicitly   
+  ...auth/index or .../auth  both represents same thing  */
+app.use('/auth',require('./controllers/auth'));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -46,7 +51,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-/* will be assinging dynamic ports if it's available */
+/* will be assinging dynamic ports if it's available  else port will be 3000*/
 const port = process.env.PORT || 3000;
 
 /* running application server on port 3000 */
