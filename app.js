@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+const http = require('http');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -21,6 +21,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/* http server */
+const server = http.createServer(app);
 
 app.use('/', index);
 app.use('/users', users);
@@ -42,5 +45,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+/* will be assinging dynamic ports if it's available */
+const port = process.env.PORT || 3000;
+
+/* running application server on port 3000 */
+server.listen(port,()=>{
+  console.log(`Hey! I'm running on ${server.address().port}`);
+})
 
 module.exports = app;
