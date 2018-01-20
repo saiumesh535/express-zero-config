@@ -36,7 +36,6 @@ app.use('/users', users);
 
 app.use((req,res,next)=>{
   console.log("hey! I'm middelware")
-  console.log(s);
   next();
 })
 
