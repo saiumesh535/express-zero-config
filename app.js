@@ -5,10 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const http = require('http');
+const cors  = require('cors');
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+// cors being added for more information refer https://www.npmjs.com/package/cors
+app.use(cors());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
