@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const http = require('http');
 const cors  = require('cors');
-
+const errorHandler = require('./middlewares/errorHandlers');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -34,10 +34,20 @@ const server = http.createServer(app);
 app.use('/', index);
 app.use('/users', users);
 
+app.use((req,res,next)=>{
+  console.log("hey! I'm middelware")
+  console.log(s);
+  next();
+})
+
 /* serving auth files to route */
 /* index.js file will be called by default if you don't mention any file name explicitly   
   ...auth/index or .../auth  both represents same thing  */
 app.use('/auth',require('./controllers/auth'));
+
+/* get env details */
+// const env = process.env.NODE_ENV;
+// console.log(env);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -47,15 +57,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+app.use(errorHandler.handleDevErrors);
 
 /* will be assinging dynamic ports if it's available  else port will be 3000*/
 const port = process.env.PORT || 3000;
