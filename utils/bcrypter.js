@@ -1,7 +1,7 @@
 /* this is where we will encrypt the paswrod and will store that in DB,
 you know saving plain passwords is bas :-( */
 
-/* we are using bcrypt for encrypting the password, feel free to use other strategies */
+/* we are using bcryptjs for encrypting the password, feel free to use other strategies */
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 

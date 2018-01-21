@@ -12,13 +12,11 @@ module.exports = {
         if (pool) {
             getConnection(req, res, next);
         } else {
-            /* create pool */
-            pool = mysql.createPool({
-                host: config.mysql.host,
-                user: config.mysql.user,
-                password: config.mysql.password,
-                database: config.mysql.database
-            })
+            /* create pool 
+            here, we are getting mysql config from config.js,
+            but you can also opt for process evn's 
+            */
+            pool = mysql.createPool(config.mysql)
             getConnection(req, res, next);
         }
 

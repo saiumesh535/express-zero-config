@@ -8,9 +8,16 @@ exports.verifyToken = async (req,res,next) =>{
         if(req.get('token') == undefined || null){
             return resHandler.errorMessage(res,'no token provided',req);
         }
-        const isTokenValid = await tokenHelper.verifyToken(req.get('token'));
+        const tokenData = await tokenHelper.verifyToken(req.get('token'));
         next();
     }catch(error){
+        /* when token expires 
+           either you can end session or refresh the token and 
+           send 
+        */
+        if(error.name === 'TokenExpiredError'){
+            return resHandler.errorMessage(res,'token expired',req);
+        }
         resHandler.errorMessage(res,'not a valid token',req);
     }
 }
