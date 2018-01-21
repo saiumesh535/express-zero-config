@@ -14,5 +14,12 @@
         /* token will be expired in 1 hour
         you can also use this expression expiresIn: 60 * 60 */
         return await jwt.sign(data, config.jsonWebTokenKey, { expiresIn: '1h' });
+     },
+     verifyToken : async (token) =>{
+         return new Promise((resolve,reject)=>{
+            jwt.verify(token, config.jsonWebTokenKey,(err,decoded)=>{
+                (err ? reject(err) : resolve(decoded));
+            })
+         })
      }
  }

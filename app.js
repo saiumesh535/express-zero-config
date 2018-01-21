@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 const http = require('http');
 const cors  = require('cors');
 const errorHandler = require('./middlewares/errorHandlers');
+const mysqlMidd = require('./middlewares/mysql');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -42,7 +43,8 @@ app.use((req,res,next)=>{
 /* serving auth files to route */
 /* index.js file will be called by default if you don't mention any file name explicitly   
   ...auth/index or .../auth  both represents same thing  */
-app.use('/auth',require('./controllers/auth'));
+app.use('/auth', mysqlMidd.getConnection, require('./controllers/auth'));
+app.use('/getPosts', require('./middlewares/verifyToken').verifyToken, require('./controllers/posts/getPosts').getPosts);
 
 /* get env details */
 // const env = process.env.NODE_ENV;
@@ -58,7 +60,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(errorHandler.handleDevErrors);
 
-/* will be assinging dynamic ports if it's available  else port will be 3000*/
+/* will be assinging env port if it's available  else port will be 3000*/
 const port = process.env.PORT || 3000;
 
 /* running application server on port 3000 */
