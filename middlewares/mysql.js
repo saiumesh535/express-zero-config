@@ -14,7 +14,7 @@ module.exports = {
         } else {
             /* create pool 
             here, we are getting mysql config from config.js,
-            but you can also opt for process evn's 
+            but you can also opt for process evn's
             */
             pool = mysql.createPool(config.mysql)
             getConnection(req, res, next);
