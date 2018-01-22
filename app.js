@@ -6,10 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const http = require('http');
 const cors  = require('cors');
-const errorHandler = require('./middlewares/errorHandlers');
-const mysqlMidd = require('./middlewares/mysql');
-var index = require('./routes/index');
-var users = require('./routes/users');
+const errorHandler = require('./app/middlewares/errorHandlers');
+const mysqlMidd = require('./app/middlewares/mysql');
+var index = require('./app/routes/index');
+var users = require('./app/routes/users');
 
 var app = express();
 
