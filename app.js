@@ -18,7 +18,7 @@ app.use(cors());
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './app/views'));
 app.set('view engine', 'pug');
 
 
@@ -29,23 +29,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* connecting MongoDB */
+//app.use(require('./app/middlewares/mongodb').connectMongoDB);
+
 /* http server */
 const server = http.createServer(app);
 
 app.use('/', index);
 app.use('/users', users);
 
-app.use((req,res,next)=>{
-  s
-  console.log("hey! I'm middelware")
-  next();
-})
+
 
 /* serving auth files to route */
 /* index.js file will be called by default if you don't mention any file name explicitly   
   ...auth/index or .../auth  both represents same thing  */
 app.use('/auth', mysqlMidd.getConnection, require('./app/controllers/auth'));
 app.use('/getPosts', require('./app/middlewares/verifyToken').verifyToken, require('./app/controllers/posts/getPosts').getPosts);
+
+/* these are set of mongodb examples */
+app.use('/mongo',require('./app/controllers/mongoDB'));
 
 /* get env details */
 // const env = process.env.NODE_ENV;

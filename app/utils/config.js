@@ -11,5 +11,9 @@ module.exports = {
         password: '',
         database : 'mysql_database'
 
+    },
+    mongoDB : {
+        host : 'localhost',
+        database : 'express-zero-config'
     }
 }
