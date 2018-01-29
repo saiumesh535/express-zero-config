@@ -44,8 +44,8 @@ app.use((req,res,next)=>{
 /* serving auth files to route */
 /* index.js file will be called by default if you don't mention any file name explicitly   
   ...auth/index or .../auth  both represents same thing  */
-app.use('/auth', mysqlMidd.getConnection, require('./controllers/auth'));
-app.use('/getPosts', require('./middlewares/verifyToken').verifyToken, require('./controllers/posts/getPosts').getPosts);
+app.use('/auth', mysqlMidd.getConnection, require('./app/controllers/auth'));
+app.use('/getPosts', require('./app/middlewares/verifyToken').verifyToken, require('./app/controllers/posts/getPosts').getPosts);
 
 /* get env details */
 // const env = process.env.NODE_ENV;
