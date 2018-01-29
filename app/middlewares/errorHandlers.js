@@ -15,9 +15,9 @@ module.exports = {
         res.status(404).json({status : false, code : 404, message: 'please check URL'})
     },
     /* centralizing all the errors */
-    handleExceptions : asyncMiddleware = fn =>
+    handleExceptions : fn =>
     (req, res, next) => {
-      Promise.resolve(fn(req, res))
+      fn(req, res)
         .catch((error)=>{next(error)}); 
     }
 }
