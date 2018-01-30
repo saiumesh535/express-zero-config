@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* connecting MongoDB */
-//app.use(require('./app/middlewares/mongodb').connectMongoDB);
+app.use(require('./app/middlewares/mongodb').connectMongoDb);
 
 /* http server */
 const server = http.createServer(app);

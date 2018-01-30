@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "dev": "NODE_ENV=development nodemon app.js"
+    "dev": "cross-env NODE_ENV=development nodemon app.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -19,5 +19,8 @@
     "mysql": "^2.15.0",
     "pug": "2.0.0-beta11",
     "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "cross-env": "^5.1.3"
   }
 }
