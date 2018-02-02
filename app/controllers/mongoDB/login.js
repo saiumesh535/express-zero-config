@@ -1,4 +1,5 @@
+const userSchema = require('../../schema/auth/users');
 exports.login = async (req,res)=>{
-    //console.log(s);
-    res.send("i will login");
+    const username = req.body.username;
+    const password = req.body.password;
 }

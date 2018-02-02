@@ -14,7 +14,7 @@ exports.connectMongoDb = (req, res, next) => {
     db.on('error', (error) => { next(error) });
     db.on('open', () => {
         /* Get Mongoose to use the global promise library */
-        mongoose.Promise = global.Promise;
+        //mongoose.Promise = global.Promise;
         next()
     });
 }
