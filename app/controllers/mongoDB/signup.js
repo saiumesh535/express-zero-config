@@ -1,10 +1,12 @@
-const userModel = require('../../schema/auth/users');
+const userSchema = require('../../schema/auth/users');
+const handler = require('../../utils/responseHandler');
+const bcrypter = require('../../utils/bcrypter');
 
 exports.signup = async (req,res)=>{
     const username = req.body.username;
-    const password = req.body.password;
-    userModel.usersModel.insertMany([{username,password}]).catch((error)=>{
-        res.json(error);
-    })
-    
+    /* has the password and store it in DB instead plain password */
+    const password = await bcrypter.encryptPassword(req.body.password);
+    const data = await userSchema.usersModel.create({username,password}).catch(error=>error);
+    if(data.code === 11000) return handler.errorMessage(res,'user already exists')
+    res.json(data);
 }

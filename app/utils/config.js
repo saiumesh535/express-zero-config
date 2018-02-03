@@ -15,5 +15,7 @@ module.exports = {
     mongoDB : {
         host : 'localhost',
         database : 'express-zero-config'
-    }
+    },
+    /* do not change this salrounds value */
+    bycryptSalt : 13
 }

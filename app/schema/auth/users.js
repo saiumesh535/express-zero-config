@@ -7,7 +7,14 @@ const usersSchema = new Schema({
         unique : true,
         type: String
     },
-    password: String
+    password: {
+        type: String,
+        required: true
+    },
+    created_at: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 /* this is for create mongodb collection(table in general) based on created schema */
