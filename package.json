@@ -19,7 +19,8 @@
     "mysql": "^2.15.0",
     "pug": "2.0.0-beta11",
     "serve-favicon": "~2.4.5",
-    "validator": "^9.4.0"
+    "validator": "^9.4.0",
+    "winston": "^2.4.0"
   },
   "devDependencies": {
     "cross-env": "^5.1.3"

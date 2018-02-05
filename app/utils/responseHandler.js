@@ -14,7 +14,7 @@ module.exports = {
         logError(error);
         releaseMysqlConnection(req);
     },
-    /* when we want osend manual error messages */
+    /* when we want send manual error messages */
     errorMessage : async (res,message,req) =>{
         res.status(200).json({status : false , message : message});
         releaseMysqlConnection(req);
