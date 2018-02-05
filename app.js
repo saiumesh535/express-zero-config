@@ -44,9 +44,6 @@ app.use('/getPosts', require('./app/middlewares/verifyToken').verifyToken, requi
 /* these are set of mongodb examples */
 app.use('/mongo',require('./app/controllers/mongoDB'));
 
-/* get env details */
-// const env = process.env.NODE_ENV;
-// console.log(env);
 
 // catch 404 and forward to error handler
 app.use(errorHandler.handle404Error);
