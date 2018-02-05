@@ -9,7 +9,8 @@ module.exports = {
         host: 'localhost',
         user : 'root',
         password: '',
-        database : 'mysql_database'
+        database : 'mysql_database',
+        connectionLimit: 10
 
     },
     mongoDB : {
