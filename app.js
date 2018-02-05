@@ -8,7 +8,6 @@ const cors  = require('cors');
 const errorHandler = require('./app/middlewares/errorHandlers');
 const mysqlMidd = require('./app/middlewares/mysql');
 var index = require('./app/routes/index');
-var users = require('./app/routes/users');
 
 var app = express();
 
@@ -34,8 +33,6 @@ app.use(require('./app/middlewares/mongodb').connectMongoDb);
 const server = http.createServer(app);
 
 app.use('/', index);
-app.use('/users', users);
-
 
 
 /* serving auth files to route */
