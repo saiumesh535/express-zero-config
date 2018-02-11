@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const http = require('http');
 const cors = require('cors');
-const errorHandler = require('./app/middlewares/errorHandlers');
+const { handle404Error, handleDevErrors } = require('./app/middlewares/errorHandlers');
 const mysqlMidd = require('./app/middlewares/mysql');
 const index = require('./app/routes/index');
 
@@ -46,10 +46,10 @@ app.use('/mongo', require('./app/controllers/mongoDB'));
 
 
 // catch 404 and forward to error handler
-app.use(errorHandler.handle404Error);
+app.use(handle404Error);
 
 // error handler
-app.use(errorHandler.handleDevErrors);
+app.use(handleDevErrors);
 
 /* will be assinging env port if it's available  else port will be 3000 */
 const port = process.env.PORT || 3000;
