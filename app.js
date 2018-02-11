@@ -1,15 +1,15 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const http = require('http');
-const cors  = require('cors');
+const cors = require('cors');
 const errorHandler = require('./app/middlewares/errorHandlers');
 const mysqlMidd = require('./app/middlewares/mysql');
-var index = require('./app/routes/index');
+const index = require('./app/routes/index');
 
-var app = express();
+const app = express();
 
 // cors being added for more information refer https://www.npmjs.com/package/cors
 app.use(cors());
@@ -36,13 +36,13 @@ app.use('/', index);
 
 
 /* serving auth files to route */
-/* index.js file will be called by default if you don't mention any file name explicitly   
+/* index.js file will be called by default if you don't mention any file name explicitly
   ...auth/index or .../auth  both represents same thing  */
 app.use('/auth', mysqlMidd.getConnection, require('./app/controllers/auth'));
 app.use('/getPosts', require('./app/middlewares/verifyToken').verifyToken, require('./app/controllers/posts/getPosts').getPosts);
 
 /* these are set of mongodb examples */
-app.use('/mongo',require('./app/controllers/mongoDB'));
+app.use('/mongo', require('./app/controllers/mongoDB'));
 
 
 // catch 404 and forward to error handler
@@ -51,12 +51,12 @@ app.use(errorHandler.handle404Error);
 // error handler
 app.use(errorHandler.handleDevErrors);
 
-/* will be assinging env port if it's available  else port will be 3000*/
+/* will be assinging env port if it's available  else port will be 3000 */
 const port = process.env.PORT || 3000;
 
 /* running application server on port 3000 */
-server.listen(port,()=>{
+server.listen(port, () => {
   console.log(`Hey! I'm running on ${server.address().port}`);
-})
+});
 
 module.exports = app;
