@@ -4,6 +4,5 @@ const resHandler = require('../../utils/responseHandler');
 
 exports.getPosts = (req,res)=>{
     const postsData = { id : 1, posts : 'check expres-zero-config at github by saiumesh535'};
-    console.log(sas);
     resHandler.yahResponse(res,postsData,req);
 }

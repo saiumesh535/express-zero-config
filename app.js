@@ -6,14 +6,18 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const cors = require('cors');
 const { handle404Error, handleDevErrors } = require('./app/middlewares/errorHandlers');
-const mysqlMidd = require('./app/middlewares/mysql');
-const index = require('./app/routes/index');
+const { getConnection } = require('./app/middlewares/mysql');
+const { verifyToken } = require('./app/middlewares/verifyToken');
+const { connectMongoDb } = require('./app/middlewares/mongodb');
+const compression = require('compression');
 
+const index = require('./app/routes/index');
 const app = express();
 
 // cors being added for more information refer https://www.npmjs.com/package/cors
 app.use(cors());
-
+// refer this https://expressjs.com/en/advanced/best-practice-performance.html#use-gzip-compression
+app.use(compression())
 
 // view engine setup
 app.set('views', path.join(__dirname, './app/views'));
@@ -27,23 +31,27 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* connecting MongoDB */
-app.use(require('./app/middlewares/mongodb').connectMongoDb);
+app.use(connectMongoDb);
 
 /* http server */
 const server = http.createServer(app);
 
 app.use('/', index);
 
-
 /* serving auth files to route */
 /* index.js file will be called by default if you don't mention any file name explicitly
   ...auth/index or .../auth  both represents same thing  */
-app.use('/auth', mysqlMidd.getConnection, require('./app/controllers/auth'));
-app.use('/getPosts', require('./app/middlewares/verifyToken').verifyToken, require('./app/controllers/posts/getPosts').getPosts);
+app.use('/auth', getConnection, require('./app/controllers/auth'));
+app.use('/getPosts', verifyToken, require('./app/controllers/posts/getPosts').getPosts);
 
 /* these are set of mongodb examples */
 app.use('/mongo', require('./app/controllers/mongoDB'));
 
+/* query all the errors */
+app.use('/getErrorsList', async ( req, res ) =>{
+  const haha =  await require('./app/logger').queryErrors(new Date('2018-2-11'), new Date());
+  res.json(haha)
+})
 
 // catch 404 and forward to error handler
 app.use(handle404Error);
