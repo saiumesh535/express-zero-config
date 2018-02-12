@@ -51,7 +51,7 @@ app.use('/mongo', require('./app/controllers/mongoDB'));
 app.use('/getErrorsList', async ( req, res ) =>{
   const haha =  await require('./app/logger').queryErrors(new Date('2018-2-11'), new Date());
   res.json(haha)
-})
+});
 
 // catch 404 and forward to error handler
 app.use(handle404Error);
